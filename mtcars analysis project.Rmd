@@ -1,0 +1,411 @@
+---
+title: "Mid-Semester Exam"
+author: "Nathan Orang'o"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# LIST OF DATASETS AND PACKAGES USED IN THIS DOCUMENT
+
+```{R}
+# LIBRARIES AND PACKAGES USED IN THIS DOCUMENT
+library(dplyr)
+library(magrittr)
+library(bbreg)
+library(heatmaply)
+library(dplyr)
+library(reshape2)
+library(ggplot2)
+# DATASETS USED IN THIS DOCUMENT
+data("mtcars")
+
+
+
+
+```
+
+# QUESTION ONE; DESCRIPTIVE STATISTICS
+
+## Calculate the mean and standard deviation of both horsepower and miles per gallon.
+
+```{R}
+#Exploring the dataset
+View(mtcars)
+glimpse(mtcars)
+```
+
+### [A Brief Description of `mtcars` Dataset]{.underline}
+
+-   `mtcars` dataset is an inbuilt dataset in R containing `11` different attributes of `32` different cars from various manufacturers. It provides valuable information used to analyse car performance, fuel efficiency, and design characteristics.
+
+-   Below is a detailed description of the various attributes under study and their potential use cases;
+
+    1.  `mpg`
+        -   (Miles per Gallon) Represents the fuel efficiency (miles driven per gallon of fuel). Higher values indicate better fuel economy.
+
+        -   **Use case** ⇨ Analyzing the impact of different car features on fuel efficiency.
+    2.  `cyl`
+        -   **(Number of Cylinders)** Indicates the number of cylinders in the car’s engine.
+
+        -   **Use case ⇨** Studying the relationship between cylinder count and performance.
+
+    <!-- -->
+
+    3.  `disp`
+        -   **(Displacement)** Refers to the engine displacement (in cubic inches). Larger displacements often correlate with higher power.
+
+        -   **Use case** ⇨ Investigating the effect of engine size on performance.
+    4.  `hp`
+        -   **(Horsepower)** Measures the engine’s power output. Higher horsepower typically means better acceleration.
+
+        -   **Use case** ⇨ Comparing horsepower across different car models.
+    5.  `drat`
+        -   **(Rear Axle Ratio)** Describes the ratio of rear axle gears. A higher value indicates better acceleration.
+
+        -   Use case ⇨ Assessing the impact of gear ratios on performance.
+    6.  `wt`
+        -   **(Weight)** Represents the weight of the car (in thousands of pounds). Heavier cars may have lower fuel efficiency.
+
+        -   **Use case** ⇨ Exploring the relationship between weight and mpg.
+    7.  `qsec`
+        -   **(Quarter Mile Time)** Measures the time taken to cover a quarter-mile from a standstill. Lower values indicate faster acceleration.
+
+        -   **Use case** ⇨ Analyzing acceleration performance.
+    8.  `vs`
+        -   **(V/S)** Binary variable (0 or 1) representing the engine type (V-shaped or straight).
+
+        -   **Use case** ⇨ Investigating differences in performance based on engine type.
+    9.  `am`
+        -   **(Transmission Type)** Binary variable (0 or 1) indicating the transmission type (automatic or manual).
+
+        -   **Use case** ⇨ Comparing performance between automatic and manual transmissions.
+    10. `gear`
+        -   **gear (Number of Forward Gears)** Indicates the number of forward gears in the transmission.
+
+        -   **Use case** ⇨ Studying the impact of gear count on acceleration and efficiency.
+    11. `carb`
+        -   **(Number of Carburetors)** Represents the number of carburetors in the engine.
+
+        -   **Use case** ⇨ Examining the relationship between carburetor count and performance.
+
+### Calculating the mean and Standard Deviation
+
+#### Horsepower
+
+```{r}
+horsepower_mean <- mean(mtcars$hp)
+horsepower_sd <- sd(mtcars$hp)
+
+cat("Horsepower (hp) - Mean:", horsepower_mean, "\n")
+cat("Horsepower (hp) - Standard Deviation:", horsepower_sd)
+```
+
+#### Miles Per Gallon (mpg)
+
+```{r}
+mpg_mean <- mean(mtcars$mpg)
+mpg_sd <- sd(mtcars$mpg)
+
+cat("Miles Per Gallon (mpg) - Mean:", mpg_mean, "\n")
+cat("Miles Per Gallon (mpg) - Standard Deviation:", mpg_sd)
+```
+
+### Explanation of the Code
+
+-   The code snippet `horsepower_mean <- mean(mtcars$hp)` assigns the value of the mean of the horsepower variable, found in the mtcars dataset to the variable `horsepower_mean`.
+
+-   The code snippet `horsepower_sd <- sd(mtcars$hp)` assigns the value of the Standard Deviation of the horsepower variable, found in the mtcars dataset to the variable `horsepower_sd`.
+
+-   The code snippet `cat("Horsepower (hp) - Mean:", horsepower_mean, "\n")` concatenates and prints the specified values. It outlines `"Horsepower (hp) - Mean:"` as the text string to be displayed, and `horsepower_mean` as the value to be displayed. `"\n"` is the newline character.
+
+-   The code snippet `cat("Horsepower (hp) - Standard Deviation:", horsepower_sd)` concatenates and prints the specified values. It outlines `"Horsepower (hp) - Standard Deviation:"` as the text string to be displayed, and `horsepower_sd` as the value to be displayed.
+
+-   The code snippet `cat("Miles Per Gallon (mpg) - Mean:", mpg_mean, "\n")` concatenates and prints the specified values. It outlines `"Miles Per Gallon (mpg) - Mean:"` as the text string to be displayed, and `mpg_mean` as the value to be displayed. `"\n"` is the newline character.
+
+-   The code snippet `cat("Miles Per Gallon (mpg) - Standard Deviation:", mpg_sd,)` concatenates and prints the specified values. It outlines `"Miles Per Gallon (mpg) - Standard Deviation:"` as the text string to be displayed, and `mpg_sd` as the value to be displayed.
+
+### Explanation of The Output
+
+```         
+Horsepower (hp) - Mean: 146.6875 
+Horsepower (hp) - Standard Deviation: 68.56287
+```
+
+-   The mean horsepower is the average horsepower output across all the cars in the dataset
+
+-   The horsepower standard deviation is a measure of the spread (variability) of the horsepower output around the mean.
+
+```         
+Miles Per Gallon (mpg) - Mean: 20.09062 
+Miles Per Gallon (mpg) - Standard Deviation: 6.026948
+```
+
+-   The mean mpg is the average amount of fuel in gallons used up over a mile of driving across all the cars in the dataset.
+
+-   The mpg standard deviation is a measure of the spread (variability) of the miles per gallon around the mean.
+
+## PROVIDE A FIVE-NUMBER SUMMARY (MINIMUM,1ST QUARTILE, MEDIAN,3RD QUARTILE,MAXIMUM) FOR BOTH HORSEPOWER AND MILES PER GALLON (MPG)
+
+```{r}
+# Generating a five number summaries for Horsepower and mpg
+horsepower_summary <- mtcars$hp %>% summary()
+cat("Five-number summary for Horsepower:\n", horsepower_summary)
+```
+
+```{r}
+mpg_summary <- mtcars$mpg %>% summary
+cat("Five-number summary for Miles per Gallon:\n", mpg_summary)
+```
+
+### Explanation of The Code
+
+-   The code snippet `horsepower_summary <- mtcars$hp %>% summary()` generates a five number summary of the variable `hp` found in the `mtcars` data set, and assigns the output to the variable `horsepower summary`.
+-   The code snippet `cat("Five-number summary for Horsepower:\n", horsepower_summary, "\n")` concatenates and prints the `horsepower_summary` under the title `Five-number summary for Horsepower`.
+-   The code snippet `mpg_summary <- mtcars$mpg %>% summary` generates a five number summary of the variable `mpg` found in the `mtcars` data set, and assigns the output to the variable `mpg_summary`.
+-   The code snippet `cat("Five-number summary for Miles per Gallon:\n", mpg_summary)`concatenates and prints the `mpg_summary` under the title `Five-number summary for Miles per Gallon`.
+
+### Explanation of the Output
+
+```         
+Five-number summary for Horsepower:
+ 52 96.5 123 146.6875 180 335
+```
+
+1.  **`Minimum (Min)`**:
+    -   Represents the smallest value in the dataset. In this case,
+    -   Here, the minimum horsepower value is `52` .
+2.  **`1st Quartile (1st Qu.)`**:
+    -   The value below which 25% of the data falls.
+
+    -   Here, **`96.5`** is the value below which 25% of the data falls
+3.  **`Median`**:
+    -   The middle value (50th percentile) of the data.
+
+    -   Also known as the **second quartile**.
+
+    -   Here, it is **`123`**.
+4.  **`Mean`**:
+    -   The average value.
+
+    -   The mean mpg is approximately **`146.69`**.
+5.  **`3rd Quartile (3rd Qu.)`**:
+    -   The value below which 75% of the data falls.
+
+    -   Here, it is **`180`**.
+6.  **`Maximum (Max)`**:
+    -   The largest value in the data set.
+
+    -   The maximum mpg value is **`335`**.
+
+```         
+Five-number summary for Miles per Gallon:
+ 10.4 15.425 19.2 20.09062 22.8 33.9
+ 
+```
+
+1.  **`Minimum (Min)`**:
+    -   Represents the smallest value in the dataset. In this case,
+    -   Here, the minimum mpg value is **`10.4`**.
+2.  **`1st Quartile (1st Qu.)`**:
+    -   The value below which 25% of the data falls.
+
+    -   Here, **15.425** is the value below which 25% of the data falls
+3.  **`Median`**:
+    -   The middle value (50th percentile) of the data.
+
+    -   Also known as the **second quartile**.
+
+    -   Here, it is **`19.2`**.
+4.  **`Mean`**:
+    -   The average value.
+
+    -   The mean mpg is approximately **`20.09`**.
+5.  **`3rd Quartile (3rd Qu.)`**:
+    -   The value below which 75% of the data falls.
+
+    -   Here, it is **`22.8`**.
+6.  **`Maximum (Max)`**:
+    -   The largest value in the data set.
+
+    -   The maximum mpg value is **`33.9`**.
+
+# Question Two; Pearson Correlation Analysis
+
+## Compute the Pearson correlation coefficient between horsepower and miles per gallon
+
+```{r}
+# Computing correlation
+hpmpg_correlation <- cor(mtcars$hp, mtcars$mpg)
+print(hpmpg_correlation)
+```
+
+### Explanation of the code
+
+-   The `cor` function calculates the correlation coefficients between pairs of variables.
+-   The input data for this calculation is drawn from the `mtcars` Inbuilt data set.
+-   The variables included in the correlation analysis are; `hp` and `mpg`.
+-   The resulting correlation coefficients are stored in the variable; `hpmpg_correlation`.
+
+### Interpenetration of the Output
+
+```         
+[1] -0.7761684
+```
+
+-   There is a strong negative correlation between Horsepower and Miles per Gallon, suggesting that Horsepower is inversely related to mile per gallon; an increase in horsepower denotes a decrease in fuel efficiency and vice versa.
+-   The output therefore suggests **higher horsepower(hp)** vehicles tend to have l**ower fuel efficiency figures(mpg).**
+-   Conversely, cars with **lower horsepower** tend to have **higher fuel efficiency.**
+-   From the data, it is advisable for individuals looking for more efficient cars should consider models with lower horsepower. Individuals looking for higher performance should prioritize higher horsepower models, but at the expense of fuel efficiency.
+
+# QUESTION THREE; SIMPLE LINEAR REGRESSION
+
+## Conduct a simple linear regression analysis with horsepower as the independent variable and miles per gallon(mpg) as the dependent variable.
+
+```{r}
+#Building the Linear Regression Model
+linear_regression_model <- lm(mpg ~ hp, data = mtcars)
+summary(linear_regression_model)
+```
+
+### Explanation of the Code
+
+-   The first line of code fits a linear regression model to the data using the `lm()` function.
+-   The formula `mpg ~ hp` specifies that we want to predict the `mpg (miles per gallon)` based on the `hp (horsepower)` variable.
+-   The `data = mtcars` argument specifies that the data for the model should be taken from the mtcars data set.
+-   The second line of code summarizes the linear regression model using the **`summary()`** function.
+
+### Explanation of the Output
+
+1.  `Residuals`
+
+    -   The residuals represent the difference between the actual **`mpg`** values and the predicted values from the linear regression model.
+
+    -   Residuals close to zero indicate that the model’s predictions align well with the actual data.
+
+    -   Positive residuals mean that the model under predicted the actual `mpg` value, while negative residuals mean over prediction.
+
+    -   The summary provides statistics for the residuals:
+
+        -   **Min**: -5.7121
+
+        -   **1Q (First Quartile)**: -2.1122
+
+        -   **Median (Second Quartile)**: -0.8854
+
+        -   **3Q (Third Quartile)**: 1.5819
+
+        -   **Max**: 8.2360
+
+2.  `Coefficients`
+
+    -   The coefficients section provides estimates for the intercept and the predictor variable (**`hp`**).
+
+    -   **Intercept**: The estimated intercept is 30.09886. This represents the predicted **`mpg`** when **`hp`** is zero.
+
+    -   **Coefficient for `hp`**: The coefficient for **`hp`** is -0.06823. For every one-unit increase in horsepower (**`hp`**), the predicted **`mpg`** decreases by approximately 0.06823 units.
+
+3.  `Significance Codes`:
+
+    -   The significance codes indicate the statistical significance of the coefficients.
+
+    -   The **`***`** next to the intercept and **`hp`** coefficients shows that they are highly significant (p-value \< 0.001).
+
+    -   The p-values are obtained from hypothesis tests, where a smaller p-value indicates stronger evidence against the null hypothesis (that the coefficient is zero).
+
+4.  `Residual Standard Error (RSE)`
+
+    -   The residual standard error is 3.863.
+
+    -   It measures the average prediction error of the model (how much the actual `mpg` values deviate from the predicted values).
+
+5.  `R-squared Values`
+
+    -   The **Multiple R-squared** (0.6024) indicates that approximately 60.24% of the variability in **`mpg`** can be explained by the linear regression model.
+
+    -   The **Adjusted R-squared** (0.5892) adjusts for the number of predictors in the model.
+
+    -   These values provide insights into the goodness of fit.
+
+6.  `F-statistic and p-value`
+
+    -   The F-statistic (45.46) tests the overall significance of the model.
+
+    -   The associated p-value (1.788e-07) is very small, indicating that the model as a whole is statistically significant.
+
+## PROVIDE THE REGRESSION EQUATION
+
+The linear regression equation formula in its general form is:
+
+$$
+\hat{y} = b_0 + b_1 \times x_1 + b_2 \times x_2 + \ldots + b_n \times x_n
+$$
+
+Where:
+
+-   $\hat{y}$ is the predicted value of the dependent variable (often denoted as $Y$).
+-   $b_0$ is the intercept term (the value of $\hat{y}$ when all independent variables are 0).
+-   $b_1, b_2, \ldots, b_n$ are the coefficients (slopes) associated with each independent variable.
+-   $x_1, x_2, \ldots, x_n$ are the values of the independent variables.
+
+In the case of simple linear regression with one independent variable, the equation simplifies to:
+
+$$
+\hat{y} = b_0 + b_1 \times x
+$$
+
+Where:
+
+-   $\hat{y}$ is the predicted value of the dependent variable (often denoted as $Y$).
+-   $b_0$ is the intercept term.
+-   $b_1$ is the coefficient associated with the independent variable.
+-   $x$ is the value of the independent variable.
+
+So, in the context of the above question where we have one independent variable (horsepower) and one dependent variable (e.g., miles per gallon), the regression equation can be represented as:
+
+$$
+\text{mpg} = b_0 + b_1 \times \text{hp}
+$$
+
+where $\text{mpg}$ is the actual miles per gallon, $\text{hp}$ is the horsepower, $b_0$ is the intercept, and $b_1$ is the coefficient associated with horsepower.
+
+Therefore, from the output above, we have the equation as; The regression equation for predicting miles per gallon ($\text{mpg}$) based on horsepower ($\text{hp}$) is:
+
+$$ \text{mpg} = 30.09886 - 0.06823 \times \text{hp} $$
+
+This equation tells you that for every one unit increase in horsepower, the expected change in miles per gallon is $-0.06823$ units, holding other variables constant.
+
+## INTEPRET THE SLOPE AND THE INTERCEPT IN THE CONTEXT OF THE DATA
+
+1.  [**INTERCEPT**]{.underline}
+    -   The intercept value is $30.09886$
+
+    -   The intercept represents the estimated miles per gallon when the horsepower is zero.
+
+    -   This has no practical meaning, however, as it is impossible to have a car with zero horsepower.
+2.  [SLOPE]{.underline}
+    -   The slope value is $-0.06823$
+
+    -   The slope indicates the change in miles per gallon for a one-unit increase in horsepower, with all other variables held constant.
+
+    -   A negative slope suggests an inverse relationship between horsepower and miles per gallon; As **horsepower increases**, **miles per gallon tends to decrease.**
+
+    -   Therefore, for each additional unit of horsepower, we can expect the miles per gallon to decrease by $0.06823$ units.
+
+## PLOT THE SCATTER PLOT ALONG WITH THE REGRESSION LINE
+
+```{R}
+#Plotting the scatter plot
+ggplot(mtcars, aes(x = hp, y = mpg)) +
+  geom_point() +  # Add points for the scatter plot
+  geom_smooth(method = "lm", se = FALSE) +  # Add regression line
+  labs(title = "Scatter Plot with Regression Line", 
+       x = "Horsepower", 
+       y = "Miles per Gallon")  # Labels for title and axes
+```
+
+-   `ggplot()` initializes a ggplot object. The mtcars data set is specified as the data, and aesthetic mappings are defined using `aes()`. Here, `x = hp` and `y = mpg` map the `"hp"` variable to the x-axis and the `"mpg"` variable to the y-axis.
+-   `geom_point()` adds points for the scatter plot. The color, size, and alpha arguments customize the appearance of the points.
+-   `geom_smooth()` adds a regression line to the plot using a linear model. The `se = FALSE` argument suppresses the display of confidence intervals around the regression line.
+-   `labs()` sets the plot title, x-axis label, y-axis label, and caption.
+-   `theme_minimal()` applies a minimal theme to the plot.
+-   `theme()` is used to further customize the appearance of the plot.
